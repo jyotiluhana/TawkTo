@@ -7,10 +7,9 @@
 
 import UIKit
 
-class UserListCell: UITableViewCell, Configurable, Reusable {
+class UserListCell: Reusable, Configurable  {
     
     //MARK: Properties
-//    let identifier = UserListCell.defaultReuseIdentifier
     var model: UserCellViewModel?
     
     //MARK: Controls
@@ -90,5 +89,6 @@ class UserListCell: UITableViewCell, Configurable, Reusable {
     func configureWithModel(_ model: UserCellViewModel) {
         self.noteImage.isHidden = true
         self.model = model
+        self.titleLabel.text = model.username
     }
 }

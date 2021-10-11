@@ -11,7 +11,6 @@ import UIKit
 class UserListInvertedCell: UserListCell {
     
     //MARK: Properties
-//    let identifier = UserListInvertedCell.defaultReuseIdentifier
     
     //MARK: Initialization methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

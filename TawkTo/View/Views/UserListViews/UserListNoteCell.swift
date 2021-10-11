@@ -11,8 +11,6 @@ import UIKit
 class UserListNoteCell: UserListCell {
     
     //MARK: Properties
-//    let identifier = UserListNoteCell.defaultReuseIdentifier
-
     
     //MARK: Initialization methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

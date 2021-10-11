@@ -19,10 +19,16 @@
 		5454C6F92711CBB2003FD2F6 /* UserCellCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454C6F82711CBB2003FD2F6 /* UserCellCompatible.swift */; };
 		5454C6FB2711D01E003FD2F6 /* UserCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454C6FA2711D01E003FD2F6 /* UserCellViewModel.swift */; };
 		5454C6FD271204C9003FD2F6 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454C6FC271204C9003FD2F6 /* Users.swift */; };
+		549BDBCA271413500083C80D /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBC9271413500083C80D /* APIServices.swift */; };
+		549BDBCC271416760083C80D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBCB271416760083C80D /* Constants.swift */; };
+		549BDBD027141B710083C80D /* HTTPNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBCF27141B710083C80D /* HTTPNetworkError.swift */; };
+		549BDBD227141BA20083C80D /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBD127141BA20083C80D /* HTTPRequest.swift */; };
+		549BDBD4271423200083C80D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBD3271423200083C80D /* Dictionary+Extension.swift */; };
+		54C1C14527144888004A02C0 /* userResponse.json in Sources */ = {isa = PBXBuildFile; fileRef = 54C1C14427144888004A02C0 /* userResponse.json */; };
 		54C4E5CE27130884004BDBFC /* UserListInvertedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C4E5CD27130884004BDBFC /* UserListInvertedCell.swift */; };
 		54C4E5D027130898004BDBFC /* UserListNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C4E5CF27130898004BDBFC /* UserListNoteCell.swift */; };
 		54C4E5D227134554004BDBFC /* UserListNoteInvertedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C4E5D127134554004BDBFC /* UserListNoteInvertedCell.swift */; };
-		54C4E5D427135AC7004BDBFC /* ReusableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C4E5D327135AC7004BDBFC /* ReusableView+Extension.swift */; };
+		54C4E5D427135AC7004BDBFC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C4E5D327135AC7004BDBFC /* UITableView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,10 +46,16 @@
 		5454C6F82711CBB2003FD2F6 /* UserCellCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellCompatible.swift; sourceTree = "<group>"; };
 		5454C6FA2711D01E003FD2F6 /* UserCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellViewModel.swift; sourceTree = "<group>"; };
 		5454C6FC271204C9003FD2F6 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
+		549BDBC9271413500083C80D /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
+		549BDBCB271416760083C80D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		549BDBCF27141B710083C80D /* HTTPNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNetworkError.swift; sourceTree = "<group>"; };
+		549BDBD127141BA20083C80D /* HTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPRequest.swift; sourceTree = "<group>"; };
+		549BDBD3271423200083C80D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
+		54C1C14427144888004A02C0 /* userResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = userResponse.json; sourceTree = "<group>"; };
 		54C4E5CD27130884004BDBFC /* UserListInvertedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListInvertedCell.swift; sourceTree = "<group>"; };
 		54C4E5CF27130898004BDBFC /* UserListNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListNoteCell.swift; sourceTree = "<group>"; };
 		54C4E5D127134554004BDBFC /* UserListNoteInvertedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListNoteInvertedCell.swift; sourceTree = "<group>"; };
-		54C4E5D327135AC7004BDBFC /* ReusableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReusableView+Extension.swift"; sourceTree = "<group>"; };
+		54C4E5D327135AC7004BDBFC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +88,7 @@
 		54064A20271184CC00E3001C /* TawkTo */ = {
 			isa = PBXGroup;
 			children = (
+				549BDBC8271413380083C80D /* Services */,
 				54064A41271186CD00E3001C /* Extensions */,
 				54064A40271186AE00E3001C /* Utilities */,
 				54064A3F2711869C00E3001C /* DBManager */,
@@ -161,6 +174,8 @@
 		54064A40271186AE00E3001C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				549BDBCB271416760083C80D /* Constants.swift */,
+				54C1C14427144888004A02C0 /* userResponse.json */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -169,7 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				5441EB252712F65F00225B9F /* View+Extension.swift */,
-				54C4E5D327135AC7004BDBFC /* ReusableView+Extension.swift */,
+				54C4E5D327135AC7004BDBFC /* UITableView+Extension.swift */,
+				549BDBD3271423200083C80D /* Dictionary+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,6 +207,16 @@
 				54064A4227118D1700E3001C /* UserListViews */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		549BDBC8271413380083C80D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				549BDBC9271413500083C80D /* APIServices.swift */,
+				549BDBCF27141B710083C80D /* HTTPNetworkError.swift */,
+				549BDBD127141BA20083C80D /* HTTPRequest.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,13 +295,19 @@
 				5454C6FB2711D01E003FD2F6 /* UserCellViewModel.swift in Sources */,
 				54C4E5D227134554004BDBFC /* UserListNoteInvertedCell.swift in Sources */,
 				54064A4427118D3400E3001C /* UserListCell.swift in Sources */,
+				549BDBD4271423200083C80D /* Dictionary+Extension.swift in Sources */,
+				549BDBD027141B710083C80D /* HTTPNetworkError.swift in Sources */,
+				549BDBCC271416760083C80D /* Constants.swift in Sources */,
 				54C4E5CE27130884004BDBFC /* UserListInvertedCell.swift in Sources */,
 				54064A26271184CC00E3001C /* UserListController.swift in Sources */,
 				54064A2C271184CC00E3001C /* TawkTo.xcdatamodeld in Sources */,
+				54C1C14527144888004A02C0 /* userResponse.json in Sources */,
 				54064A22271184CC00E3001C /* AppDelegate.swift in Sources */,
-				54C4E5D427135AC7004BDBFC /* ReusableView+Extension.swift in Sources */,
+				54C4E5D427135AC7004BDBFC /* UITableView+Extension.swift in Sources */,
 				54064A24271184CC00E3001C /* SceneDelegate.swift in Sources */,
 				5441EB262712F65F00225B9F /* View+Extension.swift in Sources */,
+				549BDBD227141BA20083C80D /* HTTPRequest.swift in Sources */,
+				549BDBCA271413500083C80D /* APIServices.swift in Sources */,
 				5454C6F92711CBB2003FD2F6 /* UserCellCompatible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

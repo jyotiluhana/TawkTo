@@ -20,6 +20,12 @@ class UserListController: UIViewController {
         return tableview
     }()
     
+    lazy var serachController : UISearchController = {
+        let searchControl = UISearchController()
+        searchControl.searchResultsUpdater = self
+        return searchControl
+    } ()
+    
     //MARK: View load methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,25 +35,13 @@ class UserListController: UIViewController {
         self.addConstraints()
         
         let viewCells: [Reusable.Type] = [UserListCell.self, UserListInvertedCell.self, UserListNoteCell.self, UserListNoteInvertedCell.self]
-
         for viewCell in viewCells {
-            tableView.register(viewCell)
+            self.tableView.enroll(viewCell)
         }
         
-//        self.tableView.register(UserListCell.self, forCellReuseIdentifier: "UserListCell")
-//        self.tableView.register(UserListInvertedCell.self, forCellReuseIdentifier: "UserListInvertedCell")
-//        self.tableView.register(UserListNoteCell.self, forCellReuseIdentifier: "UserListNoteCell")
-//        self.tableView.register(UserListNoteInvertedCell.self, forCellReuseIdentifier: "UserListNoteInvertedCell")
-
+        navigationItem.searchController = serachController
         
-        userCellViewModel.append(UserCellViewModel(Users(id: 1, username: "Jyoti1", userDetails: "Jyoti User Details1", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 2, username: "Jyoti2", userDetails: "Jyoti User Details2", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 3, username: "Jyoti3", userDetails: "Jyoti User Details3", hasNote: true)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 4, username: "Jyoti4", userDetails: "Jyoti User Details4", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 5, username: "Jyoti5", userDetails: "Jyoti User Details5", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 6, username: "Jyoti6", userDetails: "Jyoti User Details6", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 7, username: "Jyoti7", userDetails: "Jyoti User Details7", hasNote: false)))
-        userCellViewModel.append(UserCellViewModel(Users(id: 7, username: "Jyoti8", userDetails: "Jyoti User Details8", hasNote: true)))
+        fetchUserData()
     }
     
     //MARK: View setup
@@ -58,12 +52,28 @@ class UserListController: UIViewController {
     private func addConstraints() {
         self.tableView.fillToSuperview()
     }
-
 }
 
-extension UITableView {
-    func register<T: UITableViewCell & Reusable>(_: T.Type) {
-        register(T.self, forCellReuseIdentifier: T.defaultIdentifier)
+extension UserListController {
+    func fetchUserData () {
+        var params = [String : Any]()
+        params["since"] = 0
+        let requestUrl = URL(string: "https://api.github.com/users?\(params.queryString)")
+        let request = HTTPRequest(withUrl: requestUrl!, forHttpMethod: .get, requestBody: nil)
+        APIServices.sharedInstance.request(httpRequest: request, resultType: [Users].self) { (response) in
+            switch response {
+            case.success(let userResponse):
+                if let userResponse = userResponse {
+                    for user in userResponse {
+                        self.userCellViewModel.append(UserCellViewModel(user))
+                    }
+                }
+                break
+            case .failure(let error):
+                print("Error: \(error)")
+                break
+            }
+        }
     }
 }
 
@@ -81,5 +91,16 @@ extension UserListController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+}
+
+extension UserListController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        // code here
+//        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
+//    func filterContentForSearchText(searchText: String, scope: String = "All") {
+//        // do some stuff
+//    }
 }
 

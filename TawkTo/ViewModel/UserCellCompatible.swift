@@ -9,8 +9,5 @@ import Foundation
 import UIKit
 
 protocol UserCellCompatible {
-    
-    var reuseIdentifier: String { get }
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell
 }
-
