@@ -11,3 +11,10 @@ import UIKit
 protocol UserCellCompatible {
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell
 }
+
+protocol Configurable {
+    associatedtype T
+    var model: T? { get set }
+    func configureWithModel(_: T)
+    
+}

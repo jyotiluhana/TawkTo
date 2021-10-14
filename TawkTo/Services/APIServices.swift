@@ -13,7 +13,7 @@ class APIServices: NSObject {
     static let sharedInstance = APIServices()
     public var authenticationToken : String? = nil
     public var customJsonDecoder : JSONDecoder? = nil
-    let BASE_URL = ""
+    let BASE_URL = "https://api.github.com/"
     
     fileprivate override init() {
     }
@@ -62,6 +62,9 @@ class APIServices: NSObject {
     private func getData<T:Decodable>(requestUrl: URL, resultType: T.Type, completionHandler:@escaping(Result<T?, HTTPNetworkError>)-> Void) {
         var urlRequest = self.createUrlRequest(requestUrl: requestUrl)
         urlRequest.httpMethod = HTTPMethods.get.rawValue
+        urlRequest.addValue("luhana.jyoti@gmail.com", forHTTPHeaderField: "email")
+        urlRequest.addValue("jyoti@git0105", forHTTPHeaderField: "password")
+        
         
         performOperation(requestUrl: urlRequest, responseType: T.self) { (result) in
             completionHandler(result)
@@ -99,5 +102,20 @@ class APIServices: NSObject {
             }
             
         }.resume()
+    }
+    
+    //MARK: Fetch data from local json file
+    func loadJson<T: Decodable>(filename fileName: String, responseType: T.Type) -> T? {
+        if let url = Bundle.main.url(forResource: fileName, withExtension: "json") {
+            do {
+                let fileurl = URL(fileURLWithPath: url.path)
+                let data = try Data(contentsOf: fileurl)
+                let response = self.decodeJsonResponse(data: data, responseType: responseType)
+                return response
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return nil
     }
 }

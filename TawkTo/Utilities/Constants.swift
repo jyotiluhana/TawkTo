@@ -11,3 +11,7 @@ enum HTTPMethods : String {
     case post = "POST"
     case get = "GET"
 }
+
+struct APIEndpoint {
+    static let users = "users"
+}

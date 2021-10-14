@@ -79,3 +79,77 @@ extension UIView {
     }
 
 }
+
+@IBDesignable extension UIView {
+    @IBInspectable var borderColor:UIColor? {
+        set {
+            layer.borderColor = newValue!.cgColor
+        }
+        get {
+            if let color = layer.borderColor {
+                return UIColor(cgColor: color)
+            }
+            else {
+                return nil
+            }
+        }
+    }
+    
+    @IBInspectable var borderWidth:CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+    
+    @IBInspectable var cornerRadius:CGFloat {
+        set {
+            layer.cornerRadius = newValue
+            clipsToBounds = newValue > 0
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+    
+    @IBInspectable var shadowRadius: CGFloat {
+        set {
+            layer.masksToBounds = false
+            layer.shadowRadius = newValue
+        }
+        get {
+            layer.masksToBounds = false
+            return layer.shadowRadius
+        }
+    }
+    
+    @IBInspectable var shadowOffset : CGSize{
+        set{
+            layer.shadowOffset = newValue
+        }
+        get{
+            return layer.shadowOffset
+        }
+    }
+    
+    @IBInspectable var shadowColor : UIColor{
+        set {
+            layer.shadowColor = newValue.cgColor
+        }
+        get{
+            return UIColor.init(cgColor: layer.shadowColor!)
+        }
+    }
+    
+    @IBInspectable var shadowOpacity : Float {
+        set {
+            layer.shadowOpacity = newValue
+        }
+        get{
+            return layer.shadowOpacity
+        }
+        
+    }
+}
