@@ -90,5 +90,6 @@ class UserListCell: Reusable, Configurable  {
         self.noteImage.isHidden = true
         self.model = model
         self.titleLabel.text = model.username
+        self.detailLabel.text = model.url
     }
 }

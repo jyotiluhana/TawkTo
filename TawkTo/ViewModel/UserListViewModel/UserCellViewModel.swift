@@ -44,28 +44,20 @@ class UserCellViewModel: UserCellCompatible {
             users?.url = newValue
         }
     }
-    var followers_url: String {
-        get {
-            return users?.followers_url ?? ""
-        }
-        set {
-            users?.followers_url = newValue
-        }
-    }
-    var following_url: String {
-        get {
-            return users?.following_url ?? ""
-        }
-        set {
-            users?.following_url = newValue
-        }
-    }
     var note: String {
         get {
             return users?.note ?? ""
         }
         set {
             users?.note = newValue
+        }
+    }
+    var node_id: String {
+        get {
+            return users?.node_id ?? ""
+        }
+        set {
+            users?.node_id = newValue
         }
     }
     var hasNote: Bool {
@@ -75,6 +67,46 @@ class UserCellViewModel: UserCellCompatible {
         }
         set {
             users?.hasNote = newValue
+        }
+    }
+    var name: String {
+        get {
+            return "Name: \(users?.name ?? "N/A")"
+        }
+        set {
+            users?.name = newValue
+        }
+    }
+    var company: String {
+        get {
+            return "Company: \(users?.company ?? "N/A")"
+        }
+        set {
+            users?.company = newValue
+        }
+    }
+    var blog: String {
+        get {
+            return "Blog: \(users?.blog ?? "N/A")"
+        }
+        set {
+            users?.blog = newValue
+        }
+    }
+    var followers: String {
+        get {
+            return "Followers: \(users?.followers ?? 0)"
+        }
+        set {
+            users?.followers = Int(newValue)
+        }
+    }
+    var following: String {
+        get {
+            return "Following: \(users?.following ?? 0)"
+        }
+        set {
+            users?.following = Int(newValue)
         }
     }
     
@@ -94,7 +126,6 @@ class UserCellViewModel: UserCellCompatible {
                 cell.configureWithModel(self)
                 return cell
             }
-            
         } else {
             //return Normal cell
             if let hasNote = users?.hasNote, hasNote {

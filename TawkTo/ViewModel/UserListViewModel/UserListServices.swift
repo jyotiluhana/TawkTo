@@ -12,7 +12,7 @@ protocol UserListResponse {
     func didRecieveUserListResponse(_ response: [Users])
 }
 
-class UserListCoordinator {
+class UserListServices {
     
     var delegate: UserListResponse?
     
@@ -37,7 +37,7 @@ class UserListCoordinator {
     }
     
     func fetchUserDataFromJson() {
-        let userData = APIServices.sharedInstance.loadJson(filename: "userResponse", responseType: [Users].self)
+        let userData = APIServices.sharedInstance.loadJson(filename: "UserList", responseType: [Users].self)
         if let userResponse = userData {
             self.delegate?.didRecieveUserListResponse(userResponse)
         }

@@ -15,21 +15,21 @@ class UserListViewModel {
     
     private var since : Int = 0
     
-    var userListCoordinator = UserListCoordinator()
+    var userListService = UserListServices()
     var userCellViewModel = [UserCellViewModel]()
     var delegate : UserListDataProvider?
     
     var users = [Users]() {
         didSet {
-            userCellViewModel.removeAll()
             userCellViewModel = users.indices.map({  UserCellViewModel(users[$0]) })
             self.delegate?.didUpdateUserData()
         }
     }
     
     func getUserData(_ sinceValue: Int) {
-        userListCoordinator.delegate = self
-        userListCoordinator.fetchUserList(since)
+        userCellViewModel.removeAll()
+        userListService.delegate = self
+        userListService.fetchUserList(since)
     }
     
     func getCount() -> Int {
