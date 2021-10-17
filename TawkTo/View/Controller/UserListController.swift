@@ -19,11 +19,11 @@ class UserListController: UIViewController{
         return tableview
     }()
     
-    lazy var serachController : UISearchController = {
+    lazy var searchController : UISearchController = {
         let searchControl = UISearchController()
         searchControl.searchResultsUpdater = self
         return searchControl
-    } ()
+    }()
     
     //MARK: View load methods
     override func viewDidLoad() {
@@ -35,13 +35,12 @@ class UserListController: UIViewController{
         
         self.title = "Users"
         
-        let viewCells: [Reusable.Type] = [UserListCell.self, UserListInvertedCell.self, UserListNoteCell.self, UserListNoteInvertedCell.self]
+        let viewCells: [Reusable.Type] = [UserListCell.self, UserListInvertedCell.self, UserListNoteCell.self, UserListNoteInvertedCell.self, SkeletonUserCell.self]
         for viewCell in viewCells {
             self.tableView.enroll(viewCell)
         }
         
-        navigationItem.searchController = serachController
-        
+        navigationItem.searchController = searchController
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -29,6 +29,7 @@ class UserDetailsController: UIViewController {
         if let username = userCellViewModel?.username {
             self.userDetailsViewModel.fetchUserDetails(withUsername: username)
         }
+//        self.setupView()
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
@@ -49,6 +50,16 @@ extension UserDetailsController {
         
         self.txtViewNotes.text = userCellViewModel?.notes?.note
     }
+    
+    func setupView() {
+        self.userProfileImage.addShimmerLoading()
+        self.lblFollowers.addShimmerLoading()
+        self.lblFollowing.addShimmerLoading()
+        self.lblName.addShimmerLoading()
+        self.lblCompany.addShimmerLoading()
+        self.lblBlog.addShimmerLoading()
+        self.txtViewNotes.addShimmerLoading()
+    }
 }
 
 extension UserDetailsController: UserDetailsDataProvider {
@@ -60,6 +71,9 @@ extension UserDetailsController: UserDetailsDataProvider {
         DispatchQueue.main.async {
             self.setupInitialData()
         }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
+//            self.setupInitialData()
+//        }
     }
 
     func didUpdateNote() {

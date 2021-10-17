@@ -19,7 +19,9 @@ class UserListViewModel {
     var userCellViewModel = [UserCellViewModel]()
     private var userManager = UserManager()
     private var noteManager = NoteManager()
+    var isLoading = false
     var delegate : UserListDataProvider?
+    
     
     var users = [Users]() {
         didSet {
@@ -29,12 +31,15 @@ class UserListViewModel {
             for user in users {
                 userManager.create(record: user)
             }
+            self.isLoading = false
             self.delegate?.didUpdateUserData()
         }
     }
     
     func getUserData(_ sinceValue: Int) {
-        userCellViewModel.removeAll()
+        self.userCellViewModel.removeAll()
+        self.users.removeAll()
+        self.isLoading = true
         userListService.delegate = self
         userListService.fetchUserList(since)
     }
@@ -50,6 +55,7 @@ class UserListViewModel {
 
 extension UserListViewModel: UserListResponse {
     func didRecieveUserListResponse(_ response: [Users]) {
+        
         var userList = [Users]()
         for var user in response {
             if let result = self.noteManager.fetchNoteById(recordId: user.id!) {

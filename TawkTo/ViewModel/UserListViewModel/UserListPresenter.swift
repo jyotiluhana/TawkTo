@@ -35,15 +35,22 @@ extension UserListPresenter: UserListDataProvider {
         DispatchQueue.main.async {
             self.tableview?.reloadData()
         }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
+//            self.tableview?.reloadData()
+//        }
     }
 }
 
 extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userListViewModel?.getCount() ?? 0
+        return userListViewModel!.isLoading ? 15 : userListViewModel?.getCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let loading = userListViewModel?.isLoading, loading {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonUserCell.defaultIdentifier, for: indexPath) as! SkeletonUserCell
+            return cell
+        }
         let data = userListViewModel?.getModelForIndex(indexPath.row)
         return data?.cellForTableView(tableView: tableView, atIndexPath: indexPath) ?? UITableViewCell()
     }

@@ -73,6 +73,11 @@ class UserListCell: Reusable, Configurable  {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        self.userProfileImage.cornerRadius = self.userProfileImage.frame.height / 2
+    }
+    
     //MARK: View setup
     private func setupViews() {
         self.contentView.addSubview(mainStackView)
