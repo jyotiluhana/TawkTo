@@ -24,5 +24,7 @@ class UserListNoteInvertedCell: UserListCell {
     override func configureWithModel(_ model: UserCellViewModel) {
         self.noteImage.isHidden = false
         self.contentView.backgroundColor = .red
+        self.titleLabel.text = model.username
+        self.detailLabel.text = model.url
     }
 }

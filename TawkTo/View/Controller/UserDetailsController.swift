@@ -31,9 +31,10 @@ class UserDetailsController: UIViewController {
         }
     }
     
-    
     @IBAction func didTapSave(_ sender: UIButton) {
-        
+        if let note = txtViewNotes.text {
+            self.userDetailsViewModel.addUserNotes(note: note)
+        }
     }
 }
 
@@ -46,15 +47,22 @@ extension UserDetailsController {
         self.lblCompany.text = userCellViewModel?.company
         self.lblBlog.text = userCellViewModel?.blog
         
-        self.txtViewNotes.text = userCellViewModel?.note
+        self.txtViewNotes.text = userCellViewModel?.notes?.note
     }
 }
 
 extension UserDetailsController: UserDetailsDataProvider {
     func didFetchUserDetails() {
         self.userCellViewModel = userDetailsViewModel.getUserDetails()
+        if let data = self.userDetailsViewModel.fetchUserNoteForId(userCellViewModel!.id) {
+            self.userCellViewModel?.notes = data
+        }
         DispatchQueue.main.async {
             self.setupInitialData()
         }
+    }
+
+    func didUpdateNote() {
+        self.txtViewNotes.text = userCellViewModel?.note
     }
 }

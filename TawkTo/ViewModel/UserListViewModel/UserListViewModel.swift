@@ -17,11 +17,18 @@ class UserListViewModel {
     
     var userListService = UserListServices()
     var userCellViewModel = [UserCellViewModel]()
+    private var userManager = UserManager()
+    private var noteManager = NoteManager()
     var delegate : UserListDataProvider?
     
     var users = [Users]() {
         didSet {
             userCellViewModel = users.indices.map({  UserCellViewModel(users[$0]) })
+            let documentDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            debugPrint(documentDirectoryPath[0])
+            for user in users {
+                userManager.create(record: user)
+            }
             self.delegate?.didUpdateUserData()
         }
     }
@@ -43,6 +50,15 @@ class UserListViewModel {
 
 extension UserListViewModel: UserListResponse {
     func didRecieveUserListResponse(_ response: [Users]) {
-        self.users.append(contentsOf: response)
+        var userList = [Users]()
+        for var user in response {
+            if let result = self.noteManager.fetchNoteById(recordId: user.id!) {
+                user.notes = result
+            } else {
+                user.notes = nil
+            }
+            userList.append(user)
+        }
+        self.users.append(contentsOf: userList)
     }
 }

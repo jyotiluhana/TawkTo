@@ -31,7 +31,7 @@ class UserListTests: XCTestCase {
     }
 
     func getUserData() {
-        let userListCoordinator = UserListCoordinator()
+        let userListCoordinator = UserListServices()
         userListCoordinator.delegate = self
         userListCoordinator.fetchUserDataFromJson()
     }

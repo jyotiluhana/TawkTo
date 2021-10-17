@@ -41,6 +41,11 @@ class UserListController: UIViewController{
         }
         
         navigationItem.searchController = serachController
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.userListPresenter = UserListPresenter(tableview: tableView, userListViewModel: userListViewModel)
         self.userListPresenter?.delegate = self
     }

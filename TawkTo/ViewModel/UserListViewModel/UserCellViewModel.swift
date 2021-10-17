@@ -46,27 +46,27 @@ class UserCellViewModel: UserCellCompatible {
     }
     var note: String {
         get {
-            return users?.note ?? ""
+            return users?.notes?.note ?? ""
         }
         set {
-            users?.note = newValue
+            users?.notes?.note = newValue
         }
     }
-    var node_id: String {
+    var note_id: Int {
         get {
-            return users?.node_id ?? ""
+            return users?.notes?.id ?? 0
         }
         set {
-            users?.node_id = newValue
+            users?.notes?.id = Int(newValue)
         }
     }
     var hasNote: Bool {
         get {
-            let note = users?.note ?? ""
-            return note.isEmpty ? false : true
+            return users?.hasNote ?? false
         }
         set {
-            users?.hasNote = newValue
+            let note = users?.notes?.note ?? ""
+            users?.hasNote = note.isEmpty ? false : true
         }
     }
     var name: String {
@@ -110,6 +110,15 @@ class UserCellViewModel: UserCellCompatible {
         }
     }
     
+    var notes: Note? {
+        get {
+            return users?.notes ?? nil
+        }
+        set {
+            users?.notes = newValue
+        }
+    }
+    
     init(_ user: Users) {
         self.users = user
     }
@@ -117,7 +126,7 @@ class UserCellViewModel: UserCellCompatible {
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell {
         if ((indexPath.row + 1) % 4 == 0) {
             //return Inverted Cell
-            if let hasNote = users?.hasNote, hasNote {
+            if users?.notes != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: UserListNoteInvertedCell.defaultIdentifier, for: indexPath) as! UserListNoteInvertedCell
                 cell.configureWithModel(self)
                 return cell
@@ -128,7 +137,7 @@ class UserCellViewModel: UserCellCompatible {
             }
         } else {
             //return Normal cell
-            if let hasNote = users?.hasNote, hasNote {
+            if users?.notes != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: UserListNoteCell.defaultIdentifier, for: indexPath) as! UserListNoteCell
                 cell.configureWithModel(self)
                 return cell

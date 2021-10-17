@@ -23,5 +23,7 @@ class UserListNoteCell: UserListCell {
 
     override func configureWithModel(_ model: UserCellViewModel) {
         self.noteImage.isHidden = false
+        self.titleLabel.text = model.username
+        self.detailLabel.text = model.url
     }
 }

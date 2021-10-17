@@ -27,9 +27,9 @@ struct Users: Codable {
     var type: String?
     var site_admin: Bool?
     
-    var note: String?
+//    var note: String?
     var hasNote: Bool?
-    var note_id: String?
+//    var note_id: String?
     var name: String?
     var company: String?
     var blog: String?
@@ -44,4 +44,6 @@ struct Users: Codable {
     var following: Int?
     var created_at: String?
     var updated_at: String?
+    
+    var notes: Note?
 }
