@@ -41,6 +41,10 @@ struct UserManager {
         return _userRepository.update(record: record)
     }
     
+    func fetchFilterUser(byName name: String) -> [Users]? {
+        return _userRepository.searchUser(byName: name)
+    }
+    
     
     private func validateNote(note: Note?) -> Bool
     {

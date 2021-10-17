@@ -15,24 +15,34 @@ protocol UserListCompatible {
 class UserListPresenter: NSObject {
     
     private var tableview: UITableView?
+    private var refreshControl: UIRefreshControl?
     var userListViewModel: UserListViewModel?
     var delegate: UserListCompatible?
     
     
-    init(tableview: UITableView, userListViewModel: UserListViewModel) {
+    init(tableview: UITableView, refreshControl: UIRefreshControl, userListViewModel: UserListViewModel) {
         super.init()
         self.tableview = tableview
+        self.refreshControl = refreshControl
+        self.tableview?.refreshControl = refreshControl
+        self.refreshControl?.addTarget(self, action: #selector(didRefreshData(refresh:)), for: .valueChanged)
         self.userListViewModel = userListViewModel
         self.tableview?.dataSource = self
         self.tableview?.delegate = self
         self.userListViewModel?.delegate = self
-        self.userListViewModel?.getUserData(0)
+        self.userListViewModel?.getUserData()
+    }
+    
+    
+    @objc func didRefreshData(refresh: UIRefreshControl) {
+        self.userListViewModel?.getUserData()
     }
 }
 
 extension UserListPresenter: UserListDataProvider {
     func didUpdateUserData() {
         DispatchQueue.main.async {
+            self.refreshControl?.endRefreshing()
             self.tableview?.reloadData()
         }
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
@@ -53,6 +63,14 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
         }
         let data = userListViewModel?.getModelForIndex(indexPath.row)
         return data?.cellForTableView(tableView: tableView, atIndexPath: indexPath) ?? UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (!userListViewModel!.isLoading && !userListViewModel!.isSearchModeOn) && (indexPath.row == userListViewModel!.users.count - 1) {
+            tableView.addLoading(indexPath) {
+                self.userListViewModel?.loadMoreUsers()
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

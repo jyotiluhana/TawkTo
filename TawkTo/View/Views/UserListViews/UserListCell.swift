@@ -84,9 +84,12 @@ class UserListCell: Reusable, Configurable  {
     }
     
     private func setupConstraints() {
+        self.userProfileImage.backgroundColor = .red
         self.mainStackView.fillToSuperview(with: 8)
         NSLayoutConstraint.activate([
-            self.userProfileImage.widthAnchor.constraint(equalTo: self.userProfileImage.heightAnchor, multiplier: 1/1),
+//            self.userProfileImage.widthAnchor.constraint(equalTo: self.userProfileImage.heightAnchor, multiplier: 1),
+            self.userProfileImage.widthAnchor.constraint(equalToConstant: 54),
+            self.userProfileImage.heightAnchor.constraint(equalToConstant: 54),
             self.noteImage.widthAnchor.constraint(equalTo: self.userProfileImage.heightAnchor, multiplier: 1/2.5)
         ])
     }
@@ -96,5 +99,6 @@ class UserListCell: Reusable, Configurable  {
         self.model = model
         self.titleLabel.text = model.username
         self.detailLabel.text = model.url
+        self.userProfileImage.url(model.url)
     }
 }

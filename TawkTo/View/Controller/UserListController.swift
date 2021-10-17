@@ -25,6 +25,11 @@ class UserListController: UIViewController{
         return searchControl
     }()
     
+    lazy var refreshControl : UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        return refreshControl
+    }()
+    
     //MARK: View load methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +45,18 @@ class UserListController: UIViewController{
             self.tableView.enroll(viewCell)
         }
         
+//        self.tableView.refreshControl = refreshControl
+        
         navigationItem.searchController = searchController
+        searchController.obscuresBackgroundDuringPresentation = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userListPresenter = UserListPresenter(tableview: tableView, userListViewModel: userListViewModel)
-        self.userListPresenter?.delegate = self
+        if !userListViewModel.isSearchModeOn {
+            self.userListPresenter = UserListPresenter(tableview: tableView, refreshControl: refreshControl, userListViewModel: userListViewModel)
+            self.userListPresenter?.delegate = self
+        }
     }
     
     //MARK: View setup
@@ -62,12 +72,14 @@ class UserListController: UIViewController{
 extension UserListController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // code here
-//        filterContentForSearchText(searchController.searchBar.text!)
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            self.userListViewModel.isSearchModeOn = true
+            self.userListViewModel.fetchFilteredUser(withText: text)
+        } else {
+            self.userListViewModel.isSearchModeOn = false
+            self.userListViewModel.getUserData()
+        }
     }
-    
-//    func filterContentForSearchText(searchText: String, scope: String = "All") {
-//        // do some stuff
-//    }
 }
 
 extension UserListController: UserListCompatible {

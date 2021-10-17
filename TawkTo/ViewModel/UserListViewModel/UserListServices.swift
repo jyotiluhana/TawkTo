@@ -16,7 +16,7 @@ class UserListServices {
     
     var delegate: UserListResponse?
     
-    func fetchUserList(_ since: Int) {
+    func fetchUserList(withSince since: Int) {
         let apiService = APIServices.sharedInstance
         var params = [String : Any]()
         params["since"] = since

@@ -29,6 +29,7 @@
 		549BDBD4271423200083C80D /* Dictionary+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBD3271423200083C80D /* Dictionary+Extension.swift */; };
 		549FA97A271C533600EB0A7C /* SkeletonUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549FA979271C533600EB0A7C /* SkeletonUserCell.swift */; };
 		549FA97C271C545700EB0A7C /* Skeleton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549FA97B271C545700EB0A7C /* Skeleton+Extension.swift */; };
+		549FA97E271CA48200EB0A7C /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549FA97D271CA48200EB0A7C /* UIImageView+Extension.swift */; };
 		54A6319B271B446B004B84A8 /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A6319A271B446B004B84A8 /* PersistentStorage.swift */; };
 		54A631A8271B49B0004B84A8 /* CDNotes+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A631A4271B49B0004B84A8 /* CDNotes+CoreDataClass.swift */; };
 		54A631A9271B49B0004B84A8 /* CDNotes+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A631A5271B49B0004B84A8 /* CDNotes+CoreDataProperties.swift */; };
@@ -91,6 +92,7 @@
 		549BDBD3271423200083C80D /* Dictionary+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extension.swift"; sourceTree = "<group>"; };
 		549FA979271C533600EB0A7C /* SkeletonUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonUserCell.swift; sourceTree = "<group>"; };
 		549FA97B271C545700EB0A7C /* Skeleton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Skeleton+Extension.swift"; sourceTree = "<group>"; };
+		549FA97D271CA48200EB0A7C /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		54A6319A271B446B004B84A8 /* PersistentStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		54A631A4271B49B0004B84A8 /* CDNotes+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNotes+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		54A631A5271B49B0004B84A8 /* CDNotes+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNotes+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -262,6 +264,7 @@
 				54C4E5D327135AC7004BDBFC /* UITableView+Extension.swift */,
 				549BDBD3271423200083C80D /* Dictionary+Extension.swift */,
 				549FA97B271C545700EB0A7C /* Skeleton+Extension.swift */,
+				549FA97D271CA48200EB0A7C /* UIImageView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				54A631A8271B49B0004B84A8 /* CDNotes+CoreDataClass.swift in Sources */,
 				54E51EB12718394600B22918 /* Users.json in Sources */,
 				54A631B3271B5503004B84A8 /* CDUsers+Extension.swift in Sources */,
+				549FA97E271CA48200EB0A7C /* UIImageView+Extension.swift in Sources */,
 				549FA97A271C533600EB0A7C /* SkeletonUserCell.swift in Sources */,
 				54064A24271184CC00E3001C /* SceneDelegate.swift in Sources */,
 				5468E3762716B9EC006D8B0A /* UserListServices.swift in Sources */,
@@ -667,6 +671,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94B9E2W92T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TawkTo/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -675,6 +680,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -695,6 +701,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 94B9E2W92T;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TawkTo/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -703,6 +710,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

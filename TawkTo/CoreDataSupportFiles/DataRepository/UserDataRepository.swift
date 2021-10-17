@@ -146,6 +146,22 @@ struct UserDataRepository: UserRepository {
         return true
     }
     
+    func searchUser(byName name: String) -> [Users]? {
+        let fetchRequest = NSFetchRequest<CDUsers>(entityName: "CDUsers")
+        let predicate = NSPredicate(format: "login contains[c] '\(name)'")
+        fetchRequest.predicate = predicate
+        
+        let result = try! PersistentStorage.shared.context.fetch(fetchRequest)
+        guard result.count != 0 else {return nil}
+        
+        var users : [Users] = []
+        result.forEach { (cdUser) in
+            users.append(cdUser.convertToUser())
+        }
+        
+        return users
+    }
+    
     private func getCdUser(byId id: Int) -> CDUsers?
     {
         let fetchRequest = NSFetchRequest<CDUsers>(entityName: "CDUsers")
