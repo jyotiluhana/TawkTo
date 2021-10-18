@@ -12,8 +12,11 @@ class UserDetailsController: UIViewController {
     //MARK: - Properties
     var userCellViewModel : UserCellViewModel?
     var userDetailsViewModel = UserDetailsViewModel()
+    var shimmerLoader = [UIView : UIView.ShimmerLoader]()
+    lazy var shimmerViews = [userProfileImage, followerStackView, userDetailsView, lblNotes, txtViewNotes, btnSave]
     
     //MARK: Controls 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var lblFollowers: UILabel!
     @IBOutlet weak var lblFollowing: UILabel!
@@ -22,14 +25,30 @@ class UserDetailsController: UIViewController {
     @IBOutlet weak var lblBlog: UILabel!
     @IBOutlet weak var txtViewNotes: UITextView!
     
+    @IBOutlet weak var followerStackView: UIStackView!
+    @IBOutlet weak var userDetailsView: UIView!
+    @IBOutlet weak var lblNotes: UILabel!
+    @IBOutlet weak var btnSave: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
         self.userDetailsViewModel.delegate = self
         if let username = userCellViewModel?.username {
-            self.userDetailsViewModel.fetchUserDetails(withUsername: username)
+            if NetworkListner.shared.isNetworkAvailable {
+                self.userDetailsViewModel.fetchUserDetails(withUsername: username)
+            } else {
+                self.userDetailsViewModel.fetchUserDetailsFromDB(withId: userCellViewModel!.id)
+            }
         }
-//        self.setupView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NetworkListner.shared.delegate = self
+        self.setupView()
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
@@ -53,13 +72,21 @@ extension UserDetailsController {
     }
     
     func setupView() {
-        self.userProfileImage.addShimmerLoading()
-        self.lblFollowers.addShimmerLoading()
-        self.lblFollowing.addShimmerLoading()
-        self.lblName.addShimmerLoading()
-        self.lblCompany.addShimmerLoading()
-        self.lblBlog.addShimmerLoading()
-        self.txtViewNotes.addShimmerLoading()
+        for views in shimmerViews {
+            if let vw = views {
+                vw.borderWidth = 0
+                shimmerLoader[vw] = vw.addShimmerLoading()
+            }
+        }
+    }
+    
+    func removeView() {
+        self.userDetailsView.borderWidth = 1
+        self.txtViewNotes.borderWidth = 1
+        self.btnSave.borderWidth = 1
+        for (key,value) in shimmerLoader {
+            key.removeShimmer(loader: value)
+        }
     }
 }
 
@@ -70,9 +97,11 @@ extension UserDetailsController: UserDetailsDataProvider {
             self.userCellViewModel?.notes = data
         }
         DispatchQueue.main.async {
+            self.removeView()
             self.setupInitialData()
         }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+//            self.removeView()
 //            self.setupInitialData()
 //        }
     }
@@ -80,4 +109,22 @@ extension UserDetailsController: UserDetailsDataProvider {
     func didUpdateNote() {
         self.txtViewNotes.text = userCellViewModel?.note
     }
+}
+
+extension UserDetailsController: NetworkUpdates {
+    func networkDidBecameActive() {
+        debugPrint("Online details:")
+        if let username = userCellViewModel?.username {
+            self.userDetailsViewModel.fetchUserDetails(withUsername: username)
+        }
+    }
+    
+    func networkDidBecameDeactive() {
+        debugPrint("Offline details:")
+        if let id = userCellViewModel?.id {
+            self.userDetailsViewModel.fetchUserDetailsFromDB(withId: id)
+        }
+    }
+    
+    
 }

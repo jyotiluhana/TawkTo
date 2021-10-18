@@ -21,7 +21,7 @@ class NetworkListner : NSObject {
     var delegate: NetworkUpdates?
     
     var isNetworkAvailable : Bool {
-        return reachabilityStatus != .unavailable
+        return reachability.connection != .unavailable
     }
     
     

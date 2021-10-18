@@ -258,12 +258,17 @@
                     </view>
                     <navigationItem key="navigationItem" id="0ZM-or-nom"/>
                     <connections>
+                        <outlet property="btnSave" destination="ENq-WF-E4R" id="lvC-3F-aQS"/>
+                        <outlet property="followerStackView" destination="J8v-b7-Qkg" id="0yZ-Tq-x4x"/>
                         <outlet property="lblBlog" destination="lcV-Du-gdQ" id="Kf3-7j-uDw"/>
                         <outlet property="lblCompany" destination="Lhq-zk-q16" id="ama-X8-BmW"/>
                         <outlet property="lblFollowers" destination="0gO-Hq-T8P" id="ZKv-AP-TF0"/>
                         <outlet property="lblFollowing" destination="29Z-aZ-cH3" id="9cY-Jy-gn0"/>
                         <outlet property="lblName" destination="kUK-Mq-4EE" id="Qyu-U8-pLp"/>
+                        <outlet property="lblNotes" destination="ukL-zr-nyr" id="VwB-jJ-F8a"/>
+                        <outlet property="scrollView" destination="JNY-T6-Vjk" id="LVx-NK-Kx8"/>
                         <outlet property="txtViewNotes" destination="IC7-kY-IKu" id="cQn-74-VbJ"/>
+                        <outlet property="userDetailsView" destination="tSr-Wi-SWI" id="3HC-gJ-6MB"/>
                         <outlet property="userProfileImage" destination="rLR-bS-9mQ" id="8IZ-O2-amM"/>
                     </connections>
                 </viewController>

@@ -45,6 +45,9 @@ struct UserManager {
         return _userRepository.searchUser(byName: name)
     }
     
+    func fetchUserById(id: Int) -> Users? {
+        return _userRepository.get(byIdentifier: id)
+    }
     
     private func validateNote(note: Note?) -> Bool
     {

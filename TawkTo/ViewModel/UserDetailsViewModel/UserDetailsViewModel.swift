@@ -17,6 +17,7 @@ class UserDetailsViewModel {
     var userDetailsService = UserDetailsServices()
     var delegate : UserDetailsDataProvider?
     private var noteManager = NoteManager()
+    private var userManager = UserManager()
     var isLoading = false
     var userCellViewModel : UserCellViewModel?
     
@@ -43,9 +44,12 @@ class UserDetailsViewModel {
         return result
     }
     
+    func fetchUserDetailsFromDB(withId id: Int) {
+        guard let userData = self.userManager.fetchUserById(id: id) else { return }
+        self.users = userData
+    }
+    
     func addUserNotes(note: String) {
-        //        self.users.notes?.note = note
-        //        self.users.notes?.id = self.users.id
         let newNote = Note(id: users.id, note: note)
         if let id = users.id {
             let record = self.noteManager.fetchNoteById(recordId: id)
