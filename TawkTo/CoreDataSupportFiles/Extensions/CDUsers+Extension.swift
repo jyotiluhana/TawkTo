@@ -44,6 +44,7 @@ extension CDUsers {
             following: Int(self.following),
             created_at: self.created_at,
             updated_at: self.updated_at,
+            is_visited: self.is_visited,
             notes: self.toNotes?.convertToNote()
         )
     }

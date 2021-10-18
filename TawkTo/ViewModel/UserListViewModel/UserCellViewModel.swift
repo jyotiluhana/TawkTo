@@ -109,6 +109,14 @@ class UserCellViewModel: UserCellCompatible {
             users?.following = Int(newValue)
         }
     }
+    var is_visited: Bool {
+        get {
+            return users?.is_visited ?? false
+        }
+        set {
+            users?.is_visited = newValue
+        }
+    }
     
     var notes: Note? {
         get {

@@ -24,7 +24,7 @@ class UserListCell: Reusable, Configurable  {
     
     lazy var userProfileImage : UIImageView = {
         let imageview = UIImageView()
-        imageview.image = UIImage(systemName: "square.and.arrow.up.circle")
+        imageview.image = UIImage(named: "person_outline")
         imageview.contentMode = .scaleAspectFit
         self.translatesAutoresizingMaskIntoConstraints = true
         return imageview
@@ -94,10 +94,11 @@ class UserListCell: Reusable, Configurable  {
     }
     
     func configureWithModel(_ model: UserCellViewModel) {
+        self.contentView.backgroundColor = model.is_visited ? .lightGray : .systemBackground
         self.noteImage.isHidden = true
         self.model = model
         self.titleLabel.text = model.username
-        self.detailLabel.text = model.url
+        self.detailLabel.text = "\(model.url) \(NetworkListner.shared.isNetworkAvailable)"
         self.userProfileImage.url(model.avatar_url)
     }
 }

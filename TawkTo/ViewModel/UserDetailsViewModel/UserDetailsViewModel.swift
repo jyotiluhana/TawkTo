@@ -24,6 +24,7 @@ class UserDetailsViewModel {
     var users = Users() {
         didSet {
             self.userCellViewModel = UserCellViewModel(users)
+            _ = self.userManager.updateUser(record: users)
             isLoading = false
             self.delegate?.didFetchUserDetails()
         }
@@ -81,6 +82,13 @@ class UserDetailsViewModel {
 
 extension UserDetailsViewModel : UserDetailsResponse {
     func didReceiveUserDetailsResponse(_ response: Users) {
-        self.users = response
+        var user = response
+        if let result = self.noteManager.fetchNoteById(recordId: user.id!) {
+            user.notes = result
+        } else {
+            user.notes = nil
+        }
+        user.is_visited = true
+        self.users = user
     }
 }

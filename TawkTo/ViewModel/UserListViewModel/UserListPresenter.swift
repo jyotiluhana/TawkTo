@@ -18,19 +18,20 @@ class UserListPresenter: NSObject {
     private var refreshControl: UIRefreshControl?
     var userListViewModel: UserListViewModel?
     var delegate: UserListCompatible?
+//    var network : NetworkListner?
     
     
     init(tableview: UITableView, refreshControl: UIRefreshControl, userListViewModel: UserListViewModel) {
         super.init()
         self.tableview = tableview
         self.refreshControl = refreshControl
-        self.tableview?.refreshControl = refreshControl
         self.refreshControl?.addTarget(self, action: #selector(didRefreshData(refresh:)), for: .valueChanged)
         self.userListViewModel = userListViewModel
         self.tableview?.dataSource = self
         self.tableview?.delegate = self
         self.userListViewModel?.delegate = self
         NetworkListner.shared.delegate = self
+//        network = NetworkListner(delegate: self)
         
         if NetworkListner.shared.isNetworkAvailable {
             self.userListViewModel?.getUserData()
@@ -74,9 +75,11 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (!userListViewModel!.isLoading && !userListViewModel!.isSearchModeOn) && (indexPath.row == userListViewModel!.users.count - 1) && NetworkListner.shared.isNetworkAvailable {
-            tableView.addLoading(indexPath) {
-                self.userListViewModel?.loadMoreUsers()
+        if NetworkListner.shared.isNetworkAvailable {
+            if (!userListViewModel!.isLoading && !userListViewModel!.isSearchModeOn) && (indexPath.row == userListViewModel!.users.count - 1) {
+                tableView.addLoading(indexPath) {
+                    self.userListViewModel?.loadMoreUsers()
+                }
             }
         }
     }
@@ -92,12 +95,12 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
 
 extension UserListPresenter: NetworkUpdates {
     func networkDidBecameActive() {
-        debugPrint("Online mode")
+        self.tableview?.refreshControl = refreshControl
         self.userListViewModel?.getUserData()
     }
     
     func networkDidBecameDeactive() {
-        debugPrint("Offline mode")
+        self.tableview?.refreshControl = nil
         self.userListViewModel?.getAllUserFromDB()
     }
     

@@ -12,6 +12,7 @@ class UserDetailsController: UIViewController {
     //MARK: - Properties
     var userCellViewModel : UserCellViewModel?
     var userDetailsViewModel = UserDetailsViewModel()
+//    var network : NetworkListner?
     var shimmerLoader = [UIView : UIView.ShimmerLoader]()
     lazy var shimmerViews = [userProfileImage, followerStackView, userDetailsView, lblNotes, txtViewNotes, btnSave]
     
@@ -36,6 +37,7 @@ class UserDetailsController: UIViewController {
         
         
         self.userDetailsViewModel.delegate = self
+//        self.userDetailsViewModel.fetchUserDetailsFromDB(withId: userCellViewModel!.id)
         if let username = userCellViewModel?.username {
             if NetworkListner.shared.isNetworkAvailable {
                 self.userDetailsViewModel.fetchUserDetails(withUsername: username)
@@ -47,13 +49,15 @@ class UserDetailsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NetworkListner.shared.delegate = self
+//        network = NetworkListner(delegate: self)
         self.setupView()
     }
     
     @IBAction func didTapSave(_ sender: UIButton) {
         if let note = txtViewNotes.text {
             self.userDetailsViewModel.addUserNotes(note: note)
+//            self.showAppAlert(title: "Alert", message: "Note saved to Database!", style: .alert, actions: [], completion: nil)
+            self.showAppAlertWithOK(message: "Note saved to Database!", buttonAction: nil, style: .alert, buttonStyle: .default, completion: nil)
         }
     }
 }
@@ -63,7 +67,7 @@ extension UserDetailsController {
         self.lblFollowers.text = userCellViewModel?.followers
         self.lblFollowing.text = userCellViewModel?.following
         
-        self.lblName.text = userCellViewModel?.name
+        self.lblName.text = "\(NetworkListner.shared.isNetworkAvailable)" //userCellViewModel?.name
         self.lblCompany.text = userCellViewModel?.company
         self.lblBlog.text = userCellViewModel?.blog
         
@@ -109,22 +113,4 @@ extension UserDetailsController: UserDetailsDataProvider {
     func didUpdateNote() {
         self.txtViewNotes.text = userCellViewModel?.note
     }
-}
-
-extension UserDetailsController: NetworkUpdates {
-    func networkDidBecameActive() {
-        debugPrint("Online details:")
-        if let username = userCellViewModel?.username {
-            self.userDetailsViewModel.fetchUserDetails(withUsername: username)
-        }
-    }
-    
-    func networkDidBecameDeactive() {
-        debugPrint("Offline details:")
-        if let id = userCellViewModel?.id {
-            self.userDetailsViewModel.fetchUserDetailsFromDB(withId: id)
-        }
-    }
-    
-    
 }

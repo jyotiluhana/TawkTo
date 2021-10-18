@@ -85,6 +85,9 @@ extension UserListViewModel: UserListResponse {
             } else {
                 user.notes = nil
             }
+            if let record = self.userManager.fetchUserById(id: user.id!) {
+                user.is_visited = record.is_visited
+            }
             userList.append(user)
         }
         self.users.append(contentsOf: userList)

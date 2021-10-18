@@ -12,7 +12,7 @@ class UserListController: UIViewController{
     //MARK: Properties
     var userListPresenter: UserListPresenter?
     var userListViewModel = UserListViewModel()
-    static let networkListener = NetworkListner()
+//    static let networkListener = NetworkListner()
     
     //MARK: Controls
     lazy var tableView : UITableView = {
@@ -56,6 +56,12 @@ class UserListController: UIViewController{
             self.userListPresenter = UserListPresenter(tableview: tableView, refreshControl: refreshControl, userListViewModel: userListViewModel)
             self.userListPresenter?.delegate = self
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(NetworkListner.reachabilityChanged(note:)), name: .online, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: View setup

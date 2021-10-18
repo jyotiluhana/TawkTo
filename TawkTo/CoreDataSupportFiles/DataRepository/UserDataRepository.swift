@@ -50,6 +50,7 @@ struct UserDataRepository: UserRepository {
         cdUser.following = Int32(record.following ?? 0)
         cdUser.created_at = record.created_at
         cdUser.updated_at = record.updated_at
+        cdUser.is_visited = record.is_visited ?? false
         
 
         if(record.notes != nil)
@@ -120,16 +121,17 @@ struct UserDataRepository: UserRepository {
         cdUser?.following = Int32(record.following ?? 0)
         cdUser?.created_at = record.created_at
         cdUser?.updated_at = record.updated_at
+        cdUser?.is_visited = record.is_visited ?? false
         
 
-        if(record.notes != nil)
-        {
-            let cdNote = CDNotes(context: PersistentStorage.shared.context)
-            cdNote.note = record.notes?.note
-            cdNote.id = Int32(record.notes?.id ?? 0)
-            
-            cdUser?.toNotes = cdNote
-        }
+//        if(record.notes != nil)
+//        {
+//            let cdNote = CDNotes(context: PersistentStorage.shared.context)
+//            cdNote.note = record.notes?.note
+//            cdNote.id = Int32(record.notes?.id ?? 0)
+//            
+//            cdUser?.toNotes = cdNote
+//        }
 
         PersistentStorage.shared.saveContext()
 

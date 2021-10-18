@@ -22,6 +22,7 @@ class UserListNoteCell: UserListCell {
     }
 
     override func configureWithModel(_ model: UserCellViewModel) {
+        self.contentView.backgroundColor = model.is_visited ? .lightGray : .systemBackground
         self.noteImage.isHidden = false
         self.titleLabel.text = model.username
         self.detailLabel.text = model.url

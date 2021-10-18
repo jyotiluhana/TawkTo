@@ -44,6 +44,7 @@ struct Users: Codable {
     var following: Int?
     var created_at: String?
     var updated_at: String?
+    var is_visited: Bool?
     
     var notes: Note?
 }

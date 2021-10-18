@@ -58,8 +58,8 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qY1-2X-jeJ">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square.and.arrow.up.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rLR-bS-9mQ">
-                                                <rect key="frame" x="0.0" y="0.5" width="414" height="154"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person_outline" translatesAutoresizingMaskIntoConstraints="NO" id="rLR-bS-9mQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="155"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="J8v-b7-Qkg">
@@ -278,7 +278,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="square.and.arrow.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person_outline" width="48" height="48"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
