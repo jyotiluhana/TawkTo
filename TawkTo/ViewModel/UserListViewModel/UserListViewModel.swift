@@ -66,6 +66,13 @@ class UserListViewModel {
         self.users.removeAll()
         self.users.append(contentsOf: userList)
     }
+    
+    func getAllUserFromDB() {
+        guard let users = self.userManager.getAllUsers() else {return}
+        self.users.removeAll()
+        self.userCellViewModel.removeAll()
+        self.users.append(contentsOf: users)
+    }
 }
 
 extension UserListViewModel: UserListResponse {

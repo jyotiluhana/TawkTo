@@ -15,3 +15,8 @@ enum HTTPMethods : String {
 struct APIEndpoint {
     static let users = "users"
 }
+
+extension Notification.Name {
+    static let offline = Notification.Name(rawValue: "OfflineMode")
+    static let online = Notification.Name(rawValue: "OnlineMode")
+}

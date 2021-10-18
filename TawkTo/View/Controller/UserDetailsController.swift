@@ -49,6 +49,7 @@ extension UserDetailsController {
         self.lblBlog.text = userCellViewModel?.blog
         
         self.txtViewNotes.text = userCellViewModel?.notes?.note
+        self.userProfileImage.url(userCellViewModel?.avatar_url)
     }
     
     func setupView() {

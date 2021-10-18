@@ -12,6 +12,7 @@ class UserListController: UIViewController{
     //MARK: Properties
     var userListPresenter: UserListPresenter?
     var userListViewModel = UserListViewModel()
+    static let networkListener = NetworkListner()
     
     //MARK: Controls
     lazy var tableView : UITableView = {
@@ -45,8 +46,6 @@ class UserListController: UIViewController{
             self.tableView.enroll(viewCell)
         }
         
-//        self.tableView.refreshControl = refreshControl
-        
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
     }
@@ -71,7 +70,6 @@ class UserListController: UIViewController{
 
 extension UserListController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        // code here
         if let text = searchController.searchBar.text, !text.isEmpty {
             self.userListViewModel.isSearchModeOn = true
             self.userListViewModel.fetchFilteredUser(withText: text)

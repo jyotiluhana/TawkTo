@@ -30,12 +30,20 @@ class UserListPresenter: NSObject {
         self.tableview?.dataSource = self
         self.tableview?.delegate = self
         self.userListViewModel?.delegate = self
-        self.userListViewModel?.getUserData()
+        NetworkListner.shared.delegate = self
+        
+        if NetworkListner.shared.isNetworkAvailable {
+            self.userListViewModel?.getUserData()
+        } else {
+            self.userListViewModel?.getAllUserFromDB()
+        }
+        
     }
     
-    
     @objc func didRefreshData(refresh: UIRefreshControl) {
-        self.userListViewModel?.getUserData()
+        if NetworkListner.shared.isNetworkAvailable {
+            self.userListViewModel?.getUserData()
+        }
     }
 }
 
@@ -66,7 +74,7 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if (!userListViewModel!.isLoading && !userListViewModel!.isSearchModeOn) && (indexPath.row == userListViewModel!.users.count - 1) {
+        if (!userListViewModel!.isLoading && !userListViewModel!.isSearchModeOn) && (indexPath.row == userListViewModel!.users.count - 1) && NetworkListner.shared.isNetworkAvailable {
             tableView.addLoading(indexPath) {
                 self.userListViewModel?.loadMoreUsers()
             }
@@ -80,4 +88,18 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.delegate?.didRecieveNavigationRequest(withIndex: indexPath.row)
     }
+}
+
+extension UserListPresenter: NetworkUpdates {
+    func networkDidBecameActive() {
+        debugPrint("Online mode")
+        self.userListViewModel?.getUserData()
+    }
+    
+    func networkDidBecameDeactive() {
+        debugPrint("Offline mode")
+        self.userListViewModel?.getAllUserFromDB()
+    }
+    
+    
 }

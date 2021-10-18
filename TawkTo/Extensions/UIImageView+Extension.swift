@@ -8,46 +8,19 @@
 import Foundation
 import UIKit
 
-extension UIImageView {
-    // way to hack stored property in extension, we using static hence needed dictionary to store based on address
-    private static var urlStore = [String:String]()
-
-    
-    func setImage(url: String, placeholderImage: UIImage? = nil) {
-        let tmpAddress = String(format: "%p", unsafeBitCast(self, to: Int.self))
-        UIImageView.urlStore[tmpAddress] = url
-        
-        if let image = placeholderImage {
-            self.image = image
-        } else{
-            self.backgroundColor = .gray
-        }
-        
-//        ImageDownloader().downloadAndCacheImage(url: url, onSuccess: { (image, url) in
-//            DispatchQueue.main.async {
-//            if UIImageView.urlStore[tmpAddress] == url {
-//                        self.image = image
-//                        self.backgroundColor = .clear
-//                    }
-//            }
-//        }) { error in
-//        }
-    }
-}
-
 class ImageStore: NSObject {
     static let imageCache = NSCache<NSString, UIImage>()
 }
 
 extension UIImageView {
-    func url(_ url: String?) {
+    func url(_ url: String?, setInverted: Bool = false) {
         DispatchQueue.global().async { [weak self] in
             guard let stringURL = url, let url = URL(string: stringURL) else {
                 return
             }
             func setImage(image:UIImage?) {
                 DispatchQueue.main.async {
-                    self?.image = image
+                    self?.image = setInverted ? image?.invertedImage() : image
                 }
             }
             let urlToString = url.absoluteString as NSString

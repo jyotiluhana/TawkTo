@@ -25,5 +25,6 @@ class UserListNoteCell: UserListCell {
         self.noteImage.isHidden = false
         self.titleLabel.text = model.username
         self.detailLabel.text = model.url
+        self.userProfileImage.url(model.avatar_url)
     }
 }

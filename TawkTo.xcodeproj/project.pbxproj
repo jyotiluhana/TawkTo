@@ -15,6 +15,9 @@
 		54064A2E271184CF00E3001C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54064A2D271184CF00E3001C /* Assets.xcassets */; };
 		54064A31271184CF00E3001C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54064A2F271184CF00E3001C /* LaunchScreen.storyboard */; };
 		54064A4427118D3400E3001C /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54064A4327118D3400E3001C /* UserListCell.swift */; };
+		54256F61271D0110006C5161 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54256F60271D0110006C5161 /* UIImage+Extension.swift */; };
+		54256F65271D06E3006C5161 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54256F64271D06E3006C5161 /* Reachability.swift */; };
+		54256F67271D08CC006C5161 /* NetworkListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54256F66271D08CC006C5161 /* NetworkListener.swift */; };
 		5441EB262712F65F00225B9F /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5441EB252712F65F00225B9F /* View+Extension.swift */; };
 		5454C6F92711CBB2003FD2F6 /* UserCellCompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454C6F82711CBB2003FD2F6 /* UserCellCompatible.swift */; };
 		5454C6FB2711D01E003FD2F6 /* UserCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5454C6FA2711D01E003FD2F6 /* UserCellViewModel.swift */; };
@@ -78,6 +81,9 @@
 		54064A30271184CF00E3001C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54064A32271184CF00E3001C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54064A4327118D3400E3001C /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
+		54256F60271D0110006C5161 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		54256F64271D06E3006C5161 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		54256F66271D08CC006C5161 /* NetworkListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkListener.swift; sourceTree = "<group>"; };
 		5441EB252712F65F00225B9F /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		5454C6F82711CBB2003FD2F6 /* UserCellCompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellCompatible.swift; sourceTree = "<group>"; };
 		5454C6FA2711D01E003FD2F6 /* UserCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellViewModel.swift; sourceTree = "<group>"; };
@@ -253,6 +259,8 @@
 				54C1C14427144888004A02C0 /* UserList.json */,
 				54E51EB02718394600B22918 /* Users.json */,
 				549BDBCB271416760083C80D /* Constants.swift */,
+				54256F64271D06E3006C5161 /* Reachability.swift */,
+				54256F66271D08CC006C5161 /* NetworkListener.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 				549BDBD3271423200083C80D /* Dictionary+Extension.swift */,
 				549FA97B271C545700EB0A7C /* Skeleton+Extension.swift */,
 				549FA97D271CA48200EB0A7C /* UIImageView+Extension.swift */,
+				54256F60271D0110006C5161 /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -480,7 +489,9 @@
 				54C4E5CE27130884004BDBFC /* UserListInvertedCell.swift in Sources */,
 				54A631AD271B49E8004B84A8 /* BaseRepository.swift in Sources */,
 				54064A26271184CC00E3001C /* UserListController.swift in Sources */,
+				54256F61271D0110006C5161 /* UIImage+Extension.swift in Sources */,
 				54A631AA271B49B0004B84A8 /* CDUsers+CoreDataClass.swift in Sources */,
+				54256F65271D06E3006C5161 /* Reachability.swift in Sources */,
 				5468E3792716DB81006D8B0A /* UserListPresenter.swift in Sources */,
 				54064A2C271184CC00E3001C /* TawkTo.xcdatamodeld in Sources */,
 				54E51EB4271856E600B22918 /* UserDetailsServices.swift in Sources */,
@@ -505,6 +516,7 @@
 				5468E37B2716EF2E006D8B0A /* UserListViewModel.swift in Sources */,
 				5454C6F92711CBB2003FD2F6 /* UserCellCompatible.swift in Sources */,
 				54A631AB271B49B0004B84A8 /* CDUsers+CoreDataProperties.swift in Sources */,
+				54256F67271D08CC006C5161 /* NetworkListener.swift in Sources */,
 				54A631A9271B49B0004B84A8 /* CDNotes+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
