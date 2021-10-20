@@ -18,6 +18,7 @@ class APIServices: NSObject {
     fileprivate override init() {
     }
     
+    //MARK: API request call
     public func request<T:Decodable>(httpRequest: HTTPRequest, resultType: T.Type, completionHandler:@escaping(Result<T?, HTTPNetworkError>)-> Void) {
         switch httpRequest.method {
         case .get:
@@ -48,6 +49,7 @@ class APIServices: NSObject {
         return urlRequest
     }
     
+    //MARK: - Decode JSON data
     private func decodeJsonResponse<T: Decodable>(data: Data, responseType: T.Type) -> T? {
         let decoder = createJsonDecoder()
         do {
@@ -85,11 +87,12 @@ class APIServices: NSObject {
     
     // MARK: - Perform data task
     private func performOperation<T: Decodable>(requestUrl: URLRequest, responseType: T.Type, completionHandler:@escaping(Result<T?, HTTPNetworkError >) -> Void) {
-        URLSession.shared.dataTask(with: requestUrl) { (data, httpUrlResponse, error) in
+        URLSession.shared.dataTask(with: requestUrl) { [weak self] (data, httpUrlResponse, error) in
             
             let statusCode = (httpUrlResponse as? HTTPURLResponse)?.statusCode
-            if(error == nil && data != nil && data?.count != 0) {
-                let response = self.decodeJsonResponse(data: data!, responseType: responseType)
+            let successCode = 200...299
+            if(error == nil && successCode.contains(statusCode!) && data != nil && data?.count != 0) {
+                let response = self?.decodeJsonResponse(data: data!, responseType: responseType)
                 if(response != nil) {
                     completionHandler(.success(response))
                 }else {

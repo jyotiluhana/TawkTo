@@ -35,6 +35,8 @@
 		5468E3762716B9EC006D8B0A /* UserListServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E3752716B9EC006D8B0A /* UserListServices.swift */; };
 		5468E3792716DB81006D8B0A /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E3782716DB81006D8B0A /* UserListPresenter.swift */; };
 		5468E37B2716EF2E006D8B0A /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E37A2716EF2E006D8B0A /* UserListViewModel.swift */; };
+		54840F58271E8A53000BCB6A /* UserDetailsApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54840F57271E8A53000BCB6A /* UserDetailsApiTests.swift */; };
+		54840F5B271EB49B000BCB6A /* NoDataView+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54840F5A271EB49B000BCB6A /* NoDataView+UITableView.swift */; };
 		549BDBCA271413500083C80D /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBC9271413500083C80D /* APIServices.swift */; };
 		549BDBCC271416760083C80D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBCB271416760083C80D /* Constants.swift */; };
 		549BDBD027141B710083C80D /* HTTPNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549BDBCF27141B710083C80D /* HTTPNetworkError.swift */; };
@@ -118,6 +120,8 @@
 		5468E3752716B9EC006D8B0A /* UserListServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListServices.swift; sourceTree = "<group>"; };
 		5468E3782716DB81006D8B0A /* UserListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresenter.swift; sourceTree = "<group>"; };
 		5468E37A2716EF2E006D8B0A /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
+		54840F57271E8A53000BCB6A /* UserDetailsApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsApiTests.swift; sourceTree = "<group>"; };
+		54840F5A271EB49B000BCB6A /* NoDataView+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoDataView+UITableView.swift"; sourceTree = "<group>"; };
 		549BDBC9271413500083C80D /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
 		549BDBCB271416760083C80D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		549BDBCF27141B710083C80D /* HTTPNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPNetworkError.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 				549FA97D271CA48200EB0A7C /* UIImageView+Extension.swift */,
 				54256F60271D0110006C5161 /* UIImage+Extension.swift */,
 				543AD222271DA0D9001CD1B2 /* UIAlert+UIVIewController.swift */,
+				54840F5A271EB49B000BCB6A /* NoDataView+UITableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 				54E51EA52718345500B22918 /* TawkToTests.swift */,
 				54E51EAE2718363400B22918 /* UserListTests.swift */,
 				543AD220271D9402001CD1B2 /* UserListApiTests.swift */,
+				54840F57271E8A53000BCB6A /* UserDetailsApiTests.swift */,
 			);
 			path = TawkToTests;
 			sourceTree = "<group>";
@@ -650,6 +656,7 @@
 				54A631AF271B4A5A004B84A8 /* UserDataRepository.swift in Sources */,
 				549BDBD4271423200083C80D /* Dictionary+Extension.swift in Sources */,
 				549BDBD027141B710083C80D /* HTTPNetworkError.swift in Sources */,
+				54840F5B271EB49B000BCB6A /* NoDataView+UITableView.swift in Sources */,
 				54A631BC271B6317004B84A8 /* NoteManager.swift in Sources */,
 				54C1C14A2714649D004A02C0 /* UserDetailsController.swift in Sources */,
 				549BDBCC271416760083C80D /* Constants.swift in Sources */,
@@ -706,6 +713,7 @@
 			files = (
 				54E51EAF2718363400B22918 /* UserListTests.swift in Sources */,
 				54E51EA62718345500B22918 /* TawkToTests.swift in Sources */,
+				54840F58271E8A53000BCB6A /* UserDetailsApiTests.swift in Sources */,
 				543AD221271D9402001CD1B2 /* UserListApiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

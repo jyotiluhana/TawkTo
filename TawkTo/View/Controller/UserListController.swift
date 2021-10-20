@@ -9,14 +9,14 @@ import UIKit
 
 class UserListController: UIViewController{
 
-    //MARK: Properties
+    //MARK: - Properties
     var userListPresenter: UserListPresenter?
     var userListViewModel = UserListViewModel()
-//    static let networkListener = NetworkListner()
     
-    //MARK: Controls
+    //MARK: - Controls
     lazy var tableView : UITableView = {
         let tableview = UITableView()
+        tableview.accessibilityIdentifier = "UsersTableView"
         return tableview
     }()
     
@@ -31,7 +31,7 @@ class UserListController: UIViewController{
         return refreshControl
     }()
     
-    //MARK: View load methods
+    //MARK: - View load methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -74,6 +74,7 @@ class UserListController: UIViewController{
     }
 }
 
+//MARK: - Extension for UISearchResultsUpdating
 extension UserListController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let text = searchController.searchBar.text, !text.isEmpty {
@@ -86,7 +87,16 @@ extension UserListController: UISearchResultsUpdating {
     }
 }
 
+//MARK: - Extension for UserListCompatible
 extension UserListController: UserListCompatible {
+    func didCheckCountForUserData() {
+        if self.userListViewModel.getCount() == 0 {
+            self.tableView.showNoDataIndicator()
+        } else {
+            self.tableView.removeNoDataIndicator()
+        }
+    }
+    
     func didRecieveNavigationRequest(withIndex index: Int) {
         let data = userListViewModel.getModelForIndex(index)
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

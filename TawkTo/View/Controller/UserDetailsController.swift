@@ -31,14 +31,16 @@ class UserDetailsController: UIViewController {
     @IBOutlet weak var lblNotes: UILabel!
     @IBOutlet weak var btnSave: UIButton!
     
+    //MARK: - View load methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
+        self.setupView()
         self.userDetailsViewModel.delegate = self
-//        self.userDetailsViewModel.fetchUserDetailsFromDB(withId: userCellViewModel!.id)
+        
         if let username = userCellViewModel?.username {
+            self.title = username
             if NetworkListner.shared.isNetworkAvailable {
                 self.userDetailsViewModel.fetchUserDetails(withUsername: username)
             } else {
@@ -47,21 +49,16 @@ class UserDetailsController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        network = NetworkListner(delegate: self)
-        self.setupView()
-    }
-    
+    //MARK: - Button click events
     @IBAction func didTapSave(_ sender: UIButton) {
         if let note = txtViewNotes.text {
             self.userDetailsViewModel.addUserNotes(note: note)
-//            self.showAppAlert(title: "Alert", message: "Note saved to Database!", style: .alert, actions: [], completion: nil)
-            self.showAppAlertWithOK(message: "Note saved to Database!", buttonAction: nil, style: .alert, buttonStyle: .default, completion: nil)
+            self.showAppAlertWithOK(message: "Note saved to Database!", buttonAction: nil, style: .alert, completion: nil)
         }
     }
 }
 
+//MARK: - Other required methods for initialization
 extension UserDetailsController {
     func setupInitialData() {
         self.lblFollowers.text = userCellViewModel?.followers
@@ -94,6 +91,7 @@ extension UserDetailsController {
     }
 }
 
+//MARK: - Extension for UserDetailsDataProvider
 extension UserDetailsController: UserDetailsDataProvider {
     func didFetchUserDetails() {
         self.userCellViewModel = userDetailsViewModel.getUserDetails()
@@ -104,10 +102,12 @@ extension UserDetailsController: UserDetailsDataProvider {
             self.removeView()
             self.setupInitialData()
         }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-//            self.removeView()
-//            self.setupInitialData()
-//        }
+    }
+    
+    func didGetErrorInFetchingData(error: HTTPNetworkError) {
+        if let message = error.reason {
+            self.showAppAlertWithOK(message: message, buttonAction: nil, style: .alert, completion: nil)
+        }
     }
 
     func didUpdateNote() {

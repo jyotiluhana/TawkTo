@@ -9,6 +9,7 @@ import Foundation
 
 protocol UserListDataProvider {
     func didUpdateUserData()
+    func didGetErrorInFetchingUserList(error: HTTPNetworkError)
 }
 
 class UserListViewModel {
@@ -17,8 +18,8 @@ class UserListViewModel {
     
     var userListService = UserListServices()
     var userCellViewModel = [UserCellViewModel]()
-    private var userManager = UserManager()
-    private var noteManager = NoteManager()
+    private var _userManager = UserManager()
+    private var _noteManager = NoteManager()
     var isLoading = false
     var isSearchModeOn = false
     var delegate : UserListDataProvider?
@@ -30,10 +31,19 @@ class UserListViewModel {
 //            let documentDirectoryPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 //            debugPrint(documentDirectoryPath[0])
             for user in users {
-                userManager.create(record: user)
+                _userManager.create(record: user)
             }
             self.isLoading = false
             self.delegate?.didUpdateUserData()
+        }
+    }
+    
+    func initiateDataToDisplay() {
+        self.getAllUserFromDB()
+        if NetworkListner.shared.isNetworkAvailable {
+            self.getUserData()
+        } else {
+            self.getAllUserFromDB()
         }
     }
     
@@ -44,6 +54,9 @@ class UserListViewModel {
         since = 0
         userListService.delegate = self
         userListService.fetchUserList(withSince: 0)
+        userListService.onErrorHandling = { error in
+            self.delegate?.didGetErrorInFetchingUserList(error: error)
+        }
     }
     
     func loadMoreUsers() {
@@ -51,6 +64,9 @@ class UserListViewModel {
         self.isLoading = true
         userListService.delegate = self
         userListService.fetchUserList(withSince: since)
+        userListService.onErrorHandling = { error in
+            self.delegate?.didGetErrorInFetchingUserList(error: error)
+        }
     }
     
     func getCount() -> Int {
@@ -62,13 +78,26 @@ class UserListViewModel {
     }
     
     func fetchFilteredUser(withText text: String) {
-        guard let userList = self.userManager.fetchFilterUser(byName: text) else { return }
+        guard let result = self._userManager.fetchFilterUser(byName: text) else { return }
+        var userList = [Users]()
+        for var user in result {
+            if let result = self._noteManager.fetchNoteById(recordId: user.id!) {
+                user.notes = result
+            } else {
+                user.notes = nil
+            }
+            if let record = self._userManager.fetchUserById(id: user.id!) {
+                user.is_visited = record.is_visited
+            }
+            userList.append(user)
+        }
+        
         self.users.removeAll()
         self.users.append(contentsOf: userList)
     }
     
     func getAllUserFromDB() {
-        guard let users = self.userManager.getAllUsers() else {return}
+        guard let users = self._userManager.getAllUsers() else {return}
         self.users.removeAll()
         self.userCellViewModel.removeAll()
         self.users.append(contentsOf: users)
@@ -80,12 +109,12 @@ extension UserListViewModel: UserListResponse {
         
         var userList = [Users]()
         for var user in response {
-            if let result = self.noteManager.fetchNoteById(recordId: user.id!) {
+            if let result = self._noteManager.fetchNoteById(recordId: user.id!) {
                 user.notes = result
             } else {
                 user.notes = nil
             }
-            if let record = self.userManager.fetchUserById(id: user.id!) {
+            if let record = self._userManager.fetchUserById(id: user.id!) {
                 user.is_visited = record.is_visited
             }
             userList.append(user)

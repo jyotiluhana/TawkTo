@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import SnackBar_swift
 
 protocol UserListCompatible {
     func didRecieveNavigationRequest(withIndex index: Int)
+    func didCheckCountForUserData()
 }
 
 class UserListPresenter: NSObject {
@@ -18,27 +20,22 @@ class UserListPresenter: NSObject {
     private var refreshControl: UIRefreshControl?
     var userListViewModel: UserListViewModel?
     var delegate: UserListCompatible?
-//    var network : NetworkListner?
-    
     
     init(tableview: UITableView, refreshControl: UIRefreshControl, userListViewModel: UserListViewModel) {
         super.init()
         self.tableview = tableview
         self.refreshControl = refreshControl
         self.refreshControl?.addTarget(self, action: #selector(didRefreshData(refresh:)), for: .valueChanged)
-        self.userListViewModel = userListViewModel
+        
         self.tableview?.dataSource = self
         self.tableview?.delegate = self
+        
+        self.userListViewModel = userListViewModel
         self.userListViewModel?.delegate = self
+        
         NetworkListner.shared.delegate = self
-//        network = NetworkListner(delegate: self)
         
-        if NetworkListner.shared.isNetworkAvailable {
-            self.userListViewModel?.getUserData()
-        } else {
-            self.userListViewModel?.getAllUserFromDB()
-        }
-        
+        self.userListViewModel?.initiateDataToDisplay()
     }
     
     @objc func didRefreshData(refresh: UIRefreshControl) {
@@ -48,18 +45,26 @@ class UserListPresenter: NSObject {
     }
 }
 
+//MARK: - Extension for UserListDataProvider
 extension UserListPresenter: UserListDataProvider {
+    
+    func didGetErrorInFetchingUserList(error: HTTPNetworkError) {
+        let keyWindow = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        if let topController = keyWindow?.rootViewController, error.reason != nil {
+            topController.showAppAlertWithOK(message: error.reason!, buttonAction: nil, style: .alert, completion: nil)
+        }
+    }
+    
     func didUpdateUserData() {
         DispatchQueue.main.async {
+            self.delegate?.didCheckCountForUserData()
             self.refreshControl?.endRefreshing()
             self.tableview?.reloadData()
         }
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.5) {
-//            self.tableview?.reloadData()
-//        }
     }
 }
 
+//MARK: - Extension for UITableViewDataSource and UITableViewDelegate
 extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userListViewModel!.isLoading ? 15 : userListViewModel?.getCount() ?? 0
@@ -93,6 +98,7 @@ extension UserListPresenter: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+//MARK: - Extension for NetworkUpdates
 extension UserListPresenter: NetworkUpdates {
     func networkDidBecameActive() {
         self.tableview?.refreshControl = refreshControl
@@ -100,6 +106,7 @@ extension UserListPresenter: NetworkUpdates {
     }
     
     func networkDidBecameDeactive() {
+        SnackBar.make(in: self.tableview!, message: "The Internet connection appears to be offline.", duration: .lengthLong).show()
         self.tableview?.refreshControl = nil
         self.userListViewModel?.getAllUserFromDB()
     }

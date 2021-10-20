@@ -10,8 +10,6 @@ import UIKit
 
 class UserListInvertedCell: UserListCell {
     
-    //MARK: Properties
-    
     //MARK: Initialization methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

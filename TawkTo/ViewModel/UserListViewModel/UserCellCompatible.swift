@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//All the cell of the UserList tableview must confirm to UserCellCompatible
 protocol UserCellCompatible {
     func cellForTableView(tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell
 }

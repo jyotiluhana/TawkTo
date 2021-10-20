@@ -15,8 +15,13 @@ protocol UserListResponse {
 class UserListServices {
     
     var delegate: UserListResponse?
+    var onErrorHandling : ((HTTPNetworkError) -> Void)?
     
-    func fetchUserList(withSince since: Int) {
+    /// APi call for fetching user list from server
+    /// - Parameters:
+    ///   - since: Pass Int params
+    ///   - completionHandler: Will return array of Users or error based on the response of API call
+    func fetchUserList(withSince since: Int, completionHandler: ((Result<Bool, HTTPNetworkError>) -> Void)? = nil) {
         let apiService = APIServices.sharedInstance
         var params = [String : Any]()
         params["since"] = since
@@ -31,6 +36,7 @@ class UserListServices {
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                self.onErrorHandling?(error)
                 break
             }
         }

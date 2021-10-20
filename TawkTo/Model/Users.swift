@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Users: Codable {
+struct Users: Codable, Equatable {
+    static func == (lhs: Users, rhs: Users) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     var login: String?
     var id: Int?
     var node_id: String?
@@ -27,9 +31,7 @@ struct Users: Codable {
     var type: String?
     var site_admin: Bool?
     
-//    var note: String?
     var hasNote: Bool?
-//    var note_id: String?
     var name: String?
     var company: String?
     var blog: String?

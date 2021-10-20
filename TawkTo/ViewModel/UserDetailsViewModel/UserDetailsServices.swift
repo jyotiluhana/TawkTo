@@ -14,8 +14,13 @@ protocol UserDetailsResponse {
 class UserDetailsServices {
     
     var delegate: UserDetailsResponse?
+    var onErrorHandling : ((HTTPNetworkError) -> Void)?
     
-    func fetchUserDetails(username: String) {
+    /// APi call for fetching user details from server
+    /// - Parameters:
+    ///   - username: pass username as String params
+    ///   - completionHandler: Will return User details or error based on the response of API call
+    func fetchUserDetails(username: String, completionHandler: ((Result<Bool, HTTPNetworkError>) -> Void)? = nil) {
         let apiService = APIServices.sharedInstance
         let requestUrl = URL(string: "\(apiService.BASE_URL)\(APIEndpoint.users)/\(username)")
         let request = HTTPRequest(withUrl: requestUrl!, forHttpMethod: .get, requestBody: nil)
@@ -28,6 +33,7 @@ class UserDetailsServices {
                 break
             case .failure(let error):
                 print("Error: \(error)")
+                self.onErrorHandling?(error)
                 break
             }
         }

@@ -27,8 +27,13 @@ class UserListApiTests: XCTestCase {
     }
     
     func test_userList_valid_api_response() {
-        expectation = self.expectation(description: "fetch_userlist")
+        expectation = self.expectation(description: "userList_valid_api_response")
         sut.fetchUserList(withSince: 0)
+        
+        sut.onErrorHandling = { error in
+            XCTAssertNil(error.reason)
+        }
+        
         waitForExpectations(timeout: 5, handler: nil)
     }
     
@@ -39,6 +44,12 @@ class UserListApiTests: XCTestCase {
 extension UserListApiTests: UserListResponse {
     func didRecieveUserListResponse(_ response: [Users]) {
         expectation.fulfill()
+        XCTAssertNotNil(response)
         XCTAssert(response.count > 0)
+        
+        let userData = APIServices.sharedInstance.loadJson(filename: "UserList", responseType: [Users].self)
+        if let userResponse = userData {
+            XCTAssertEqual(response, userResponse)
+        }
     }
 }

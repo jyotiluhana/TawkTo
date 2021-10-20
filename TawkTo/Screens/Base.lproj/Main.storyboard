@@ -135,6 +135,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IC7-kY-IKu">
                                                 <rect key="frame" x="8" y="373" width="398" height="140"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="notes_txt"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="999" constant="140" id="0sG-03-353"/>
                                                 </constraints>

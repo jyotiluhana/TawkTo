@@ -46,7 +46,7 @@ extension UIViewController {
                          buttonAction :( ()->Void )?,
                          cancelAlertOnClick : Bool = true,
                          style: UIAlertController.Style,
-                         buttonStyle : UIAlertAction.Style = .destructive, completion: ( ()->Void )?){
+                         buttonStyle : UIAlertAction.Style = .default, completion: ( ()->Void )?){
         
         let action = UIAlertAction(title: buttonTitle, style: buttonStyle) { _ in
             guard let action = buttonAction else {return}
